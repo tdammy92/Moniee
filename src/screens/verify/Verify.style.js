@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     alignItems: 'center',
-    alignSelf:'center',
+    alignSelf: 'center',
     bottom: RFValue(25),
   },
 
@@ -52,30 +52,51 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: RFValue(10),
     fontSize: RFValue(20),
-    // fontFamily:genStyle.txt.fontHeader,
+
     backgroundColor: genStyle.bg.backgroundLight,
-    color: genStyle.txt.textColorDark,
+
     borderRadius: 8,
+  },
+  pinTxtInput: {
+    fontSize: RFValue(20),
+
+    color: genStyle.txt.textColorDark,
+
     textAlign: 'center',
   },
 
   timerWrapper: {
     marginTop: RFValue(25),
-    alignSelf:'center'
+    alignSelf: 'center',
   },
   timerText: {
-      fontFamily:genStyle.txt.fontBody,
+    fontFamily: genStyle.txt.fontBody,
     //   color:"black",
-      fontSize:RFValue(16)
+    fontSize: RFValue(16),
   },
   timerTextValue: {
-      marginTop: RFValue(15),
-    fontFamily:genStyle.txt.fontBody,
-    textAlign:'center',
-    color:"black",
-    fontStyle:'italic',
-    fontSize:RFValue(16)
+    marginTop: RFValue(15),
+    fontFamily: genStyle.txt.fontBody,
+    textAlign: 'center',
+    color: 'black',
+    fontStyle: 'italic',
+    fontSize: RFValue(16),
   },
+
+  resendBtnContainer:{
+    width:"60%",
+    alignSelf:'center',
+    backgroundColor:genStyle.bg.backgroundDark,
+    borderRadius:12,
+    height:40,
+    alignItems:'center',
+    justifyContent:'center'
+  },
+resendBtnTxt:{
+  color:'white',
+  fontSize:RFValue(12),
+  paddingHorizontal:15,
+},
 });
 
 export default styles;

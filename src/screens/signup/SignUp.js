@@ -25,9 +25,7 @@ const SignUp = ({navigation}) => {
 
   const [ShowLoader, setShowLoader] = useState(false);
 
-  //casking user permision for contact and camera useage
-  useCamera();
-  useContact();
+ 
 
   //function to proceed to otp screen
   function ProccedNextScreen() {
@@ -51,6 +49,16 @@ const SignUp = ({navigation}) => {
     }, 2000);
   }
 
+
+
+
+
+  useEffect(() => {
+   //casking user permision for contact and camera useage
+  useCamera();
+  useContact();
+  }, [])
+  
   return (
     <View style={styles.container}>
       <View style={styles.content}>

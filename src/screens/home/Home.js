@@ -17,7 +17,7 @@ const Home = ({navigation}) => {
 
   const [user, setuser] = useState({})
   const [transaction, settransaction] = useState({})
-  const [amount, setamount] = useState();
+  const [amount, setamount] = useState('');
 
   const User = useSelector(state => state.UserReducer.User);
   const Transaction = useSelector(state => state.TransactionReducer);
@@ -68,8 +68,22 @@ useEffect(() => {
   settransaction(Transaction)
 }, [])
 
-// 09045675434 1234 
-// console.log(transaction);
+
+
+useEffect(() => {
+
+  const unsubscribe = navigation.addListener('focus', () => {
+    // do something
+setamount('')
+  
+  });
+
+  return unsubscribe;
+  
+  
+
+}, [navigation])
+
   return (
     <View style={styles.container}>
       {/* Heading section */}

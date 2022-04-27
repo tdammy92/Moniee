@@ -97,7 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = true
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = true
+def enableProguardInReleaseBuilds = false
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -273,6 +273,10 @@ android {
 }
 
 dependencies {
+//added today 27apr2022
+   implementation project(':react-native-contacts')
+
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion

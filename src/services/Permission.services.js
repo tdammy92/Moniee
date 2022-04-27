@@ -2,6 +2,9 @@ import { PermissionsAndroid } from 'react-native';
 
 
 function useCamera() {
+
+
+  try {
     PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
         {
@@ -11,11 +14,18 @@ function useCamera() {
           buttonNegative:'cancel'
         }
       )
+    
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 
 
 function useContact() {
+
+  try {
+   
     PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
         {
@@ -25,6 +35,9 @@ function useContact() {
           buttonNegative:'cancel'
         }
       )
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 
