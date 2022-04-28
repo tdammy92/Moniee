@@ -14,7 +14,7 @@ import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.moniee.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
-import com.rt2zz.reactnativecontacts.ReactNativeContacts;
+// import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import java.util.List;
 
 
@@ -38,7 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
-          new ReactNativeContacts(); 
+          // new ReactNativeContacts(); 
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;

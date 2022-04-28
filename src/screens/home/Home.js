@@ -5,12 +5,14 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import {RFValue} from 'react-native-responsive-fontsize';
 import CurrencyFormat from 'react-currency-format';
 import {useSelector, useDispatch} from 'react-redux';
+import Contacts from 'react-native-contacts';
+import { PermissionsAndroid } from 'react-native';
 
 //Local imports
 import {ButtonSmall} from '../../component';
 import styles from './Home.style';
-import { LogoutUser } from '../../store/actions';
-import {removeData} from '../../services'
+import { LogoutUser ,SaveContact} from '../../store/actions';
+import {removeData,useCamera,useContact} from '../../services'
 
 
 const Home = ({navigation}) => {
@@ -27,7 +29,7 @@ const Home = ({navigation}) => {
 
 
 
-// const dispatch = useDispatch()
+const dispatch = useDispatch()
 
 
 
@@ -55,17 +57,53 @@ function HandleTransction(rout) {
   } 
 }
 
+useContact();
 
 // useEffect(() => {
 // removeData('userDetails')
 // }, [])
 
 
+useCamera();
 
 useEffect(() => {
 
   setuser(Usr)
   settransaction(Transaction)
+}, [])
+
+
+
+
+async function GetContactFromPhone() {
+
+  PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+    {
+      'title': 'Contacts',
+      'message': 'This app would like to view your contacts.',
+      'buttonPositive': 'Please accept bare mortal'
+    }
+  )
+    .then(Contacts.getAll()
+      .then((contacts) => {
+          // work with contacts
+            // console.log(contacts)
+              dispatch(SaveContact(contacts))
+          })
+            .catch((e) => {
+                console.log(e)
+            }))
+
+
+
+
+}
+
+
+
+useEffect(() => {
+  GetContactFromPhone
 }, [])
 
 

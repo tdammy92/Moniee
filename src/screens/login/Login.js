@@ -2,7 +2,7 @@ import {Text, TextInput, View, Dimensions,Alert} from 'react-native';
 import React,{useState,useEffect} from 'react';
 import { useSelector ,useDispatch} from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Contacts from 'react-native-contacts';
+
 
 //style import
 import styles from './Login.style';
@@ -79,12 +79,6 @@ function ProccedNextScreen() {
 
 
 
-async function GetContactFromPhone() {
-  Contacts.getAll().then(contacts => {
-    dispatch(SaveContact(contacts))
-  });
-}
-
 
 async function getUser() {
   await getData("userDetails")
@@ -103,7 +97,7 @@ async function getUser() {
 
 useEffect(() => {
   getUser()
-  GetContactFromPhone()
+
 }, [])
 
   return (

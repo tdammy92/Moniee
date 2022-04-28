@@ -274,7 +274,7 @@ android {
 
 dependencies {
 //added today 27apr2022
-   implementation project(':react-native-contacts')
+//    implementation project(':react-native-contacts')
 
 
     implementation fileTree(dir: "libs", include: ["*.jar"])

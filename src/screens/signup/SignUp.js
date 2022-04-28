@@ -53,11 +53,11 @@ const SignUp = ({navigation}) => {
 
 
 
-  useEffect(() => {
-   //casking user permision for contact and camera useage
-  useCamera();
-  useContact();
-  }, [])
+  // useEffect(() => {
+  //  //casking user permision for contact and camera useage
+  // useCamera();
+  // useContact();
+  // }, [])
   
   return (
     <View style={styles.container}>
