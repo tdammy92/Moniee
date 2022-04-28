@@ -64,7 +64,7 @@ const SignUp = ({navigation}) => {
       <View style={styles.content}>
         <Text style={styles.textHeader}>Let’s begin</Text>
         <Text style={styles.textBody}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Welcome to moniee payment app , please kindle enter your number to register.
         </Text>
 
         <TextInput

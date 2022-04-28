@@ -1,6 +1,6 @@
-import { useCamera, useContact } from "./Permission.services";
+import { requestAllPermision } from "./Permission.services";
 import BanksDb from "./BanksDb";
 import {getData,storeData,removeData} from './LocalStore'
 
 
-export {useCamera,useContact,BanksDb,getData,storeData,removeData}
+export {BanksDb,getData,storeData,removeData,requestAllPermision}

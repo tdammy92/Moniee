@@ -50,7 +50,7 @@ tabBarShowLabel:false,
           tabBarIcon:({focused,color})=>(
              
               <View  style={{padding:5, marginBottom:focused? 15 : null}}>
-               <Image style={{height:focused? 40:25 ,width:focused?40:25}} source={require('../../assets/icons/icon1.png')}/>
+               <Image style={{height:focused? 30:25 ,width:focused?30:25}} source={require('../../assets/icons/icon1.png')}/>
 
               </View>
           )
@@ -59,7 +59,7 @@ tabBarShowLabel:false,
           tabBarIcon:({focused,color})=>(
              
               <View  style={{padding:5, marginBottom:focused? 15 : null}}>
-               <Image style={{height:focused? 40:25 ,width:focused?40:25}} source={require('../../assets/icons/icon2.png')}/>
+               <Image style={{height:focused? 30:25 ,width:focused?30:25}} source={require('../../assets/icons/icon2.png')}/>
 
               </View>
           )
@@ -68,7 +68,7 @@ tabBarShowLabel:false,
           tabBarIcon:({focused,color})=>(
              
               <View  style={{padding:5, marginBottom:focused? 15 : null}}>
-               <Image style={{height:focused? 40:25 ,width:focused?40:25}} source={require('../../assets/icons/icon3.png')}/>
+               <Image style={{height:focused? 30:25 ,width:focused?30:25}} source={require('../../assets/icons/icon3.png')}/>
 
               </View>
           )
