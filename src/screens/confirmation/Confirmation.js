@@ -1,5 +1,5 @@
 import {Text, TextInput, View, Dimensions, Alert,StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState,useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { RFValue } from 'react-native-responsive-fontsize';
 import CurrencyFormat from 'react-currency-format';
@@ -9,32 +9,31 @@ import CurrencyFormat from 'react-currency-format';
 //Local imports
 import {Button, genStyle, Loader} from '../../component';
 import { LoginUser } from '../../store/actions';
+import { getData } from '../../services';
 
 const Confirmation = ({navigation, route}) => {
 
 
  
   const {transactionDetails,destination} = route.params;
-
+const [User, setUser] = useState({})
   const [ShowLoader, setShowLoader] = useState(false);
   const [pin, setPin] = useState('');
+
+  const pinRef = useRef(null)
 
 
 
   const dispatch = useDispatch();
 
-  const res = useSelector(state => state.UserReducer.User);
+  // const res = useSelector(state => state.UserReducer.User);
 
-  const { Pin} = JSON.parse(res);
+
 
   
 
   function ProcessTransaction() {
-
-
-    
-   
-    if (pin != Pin) {
+    if (pin != User.Pin) {
       
         Alert.alert('Warning', `Incorrect Pin`, [
           {text: 'Cancel'},
@@ -51,7 +50,41 @@ const Confirmation = ({navigation, route}) => {
 // dispatch(LoginUser)
      
     }, 2000);
+    
   }
+
+
+
+  async function getUserFromDb() {
+    await getData("userDetails")
+    .then(data => data)
+    .then(value => {
+     setUser(value)
+    })
+    .catch(err => console.log(err))
+  }
+
+
+  useEffect(() => {
+    pinRef.current.focus(1234)
+  }, [])
+  
+
+
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // do something
+  getUserFromDb()
+    });
+  
+    return unsubscribe;
+
+  }, [navigation])
+
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -74,6 +107,7 @@ const Confirmation = ({navigation, route}) => {
         {/* view for pin boxes */}
         <View style={styles.textInputWrapper}>
           <TextInput
+          ref={pinRef}
             maxLength={4}
             style={styles.pinInput}
             keyboardType="number-pad"

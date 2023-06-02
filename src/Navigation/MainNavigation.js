@@ -12,19 +12,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import FirstNavigator from "./FirstNavigator";
 import SecondNavigator from "./SecondNavigator";
 import {getUserFromDb} from '../store/actions'
+import {getData,getDB} from '../services'
 
-const getData = async (key) => {
-  // get Data from Storage
-  try {
-    const data = await AsyncStorage.getItem(key);
-    if (data !== null) {
-      // console.log(data);
-      return data;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 
 
@@ -36,7 +26,7 @@ function MainNavigation() {
 
 
   async function getUser() {
-    await getData("userDetails")
+    await getDB("userDetails")
     .then(data => data)
     .then(value => {
      setUser(value)

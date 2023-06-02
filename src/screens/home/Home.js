@@ -11,8 +11,8 @@ import Contacts from 'react-native-contacts';
 //Local imports
 import {ButtonSmall} from '../../component';
 import styles from './Home.style';
-import { LogoutUser ,SaveContact} from '../../store/actions';
-import {removeData, requestAllPermision} from '../../services'
+import { LogoutUser ,SaveContact,AddUserFromDb} from '../../store/actions';
+import {removeData,getData, requestAllPermision} from '../../services'
 
 
 const Home = ({navigation}) => {
@@ -21,11 +21,11 @@ const Home = ({navigation}) => {
   const [transaction, settransaction] = useState({})
   const [amount, setamount] = useState('');
 
-  const User = useSelector(state => state.UserReducer.User);
+  // const User = useSelector(state => state.UserReducer.User);
   const Transaction = useSelector(state => state.TransactionReducer);
 
 
-  const Usr = JSON.parse(User)
+  // const Usr = JSON.parse(User)
 
 
 
@@ -57,22 +57,14 @@ function HandleTransction(rout) {
   } 
 }
 
-
-
-// useEffect(() => {
-// removeData('userDetails')
-// }, [])
-
-
-
-useEffect(() => {
-  requestAllPermision()
- 
-  setuser(Usr)
-  settransaction(Transaction)
-}, [])
-
-
+async function getUserFromDb() {
+  await getData("userDetails")
+  .then(data => data)
+  .then(value => {
+   setuser(value)
+  })
+  .catch(err => console.log(err))
+}
 
 
 async function GetContactFromPhone() {
@@ -86,6 +78,18 @@ async function GetContactFromPhone() {
 
 
 }
+// useEffect(() => {
+// removeData('userDetails')
+// }, [])
+
+
+
+useEffect(() => {
+  requestAllPermision()
+ 
+ 
+  settransaction(Transaction)
+}, [])
 
 
 
@@ -102,7 +106,9 @@ useEffect(() => {
   const unsubscribe = navigation.addListener('focus', () => {
     // do something
 setamount('')
-  
+settransaction(Transaction)
+getUserFromDb(),
+dispatch(AddUserFromDb(user))
   });
 
   return unsubscribe;

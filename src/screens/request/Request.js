@@ -27,7 +27,7 @@ const Request = ({navigation, route}) => {
 
 
 
-  const [Amount, setAmount] = useState();
+  const [Amount, setAmount] = useState(0);
   const [SelecC, setSelecC] = useState([]);
   const dispatch = useDispatch();
 

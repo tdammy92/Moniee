@@ -11,7 +11,7 @@ return {
 
 
 }
-function getUserFromDb(user) {
+function AddUserFromDb(user) {
     
 return {
     type:actionType.ADD_USER_DB,
@@ -60,4 +60,25 @@ function ClearSelectedContact() {
 }
 
 
-export {SigUpUser,LoginUser,getUserFromDb,LogoutUser,SaveContact,SelectedContact,ClearSelectedContact}
+
+
+function requestFund(amount) {
+
+  
+    return {
+        type:actionType.REQUEST_FUNDS,
+        payload:amount
+    }
+}
+
+
+function sendFund(amount) {
+    return {
+        type:actionType.SEND_FUNDS,
+        payload:amount
+    }
+}
+
+
+export {SigUpUser,LoginUser,AddUserFromDb,LogoutUser,SaveContact,SelectedContact,ClearSelectedContact,requestFund,
+    sendFund}

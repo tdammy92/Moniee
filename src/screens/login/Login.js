@@ -1,7 +1,7 @@
 import {Text, TextInput, View, Dimensions,Alert} from 'react-native';
 import React,{useState,useEffect} from 'react';
 import { useSelector ,useDispatch} from "react-redux";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 //style import
@@ -9,23 +9,7 @@ import styles from './Login.style';
 
 //Local imports
 import {Button, genStyle,Loader} from '../../component';
-
-import { getUserFromDb,SaveContact } from '../../store/actions';
-
-
-
-const getData = async (key) => {
-  // get Data from Storage
-  try {
-    const data = await AsyncStorage.getItem(key);
-    if (data !== null) {
-      // console.log(data);
-      return data;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+import {getData}  from '../../services'
 
 
 
@@ -42,28 +26,38 @@ const getData = async (key) => {
 
 
 
-  const dispatch = useDispatch(getUserFromDb(User))
- 
- 
 
-  
+  // const user = useSelector( (state) =>state.UserReducer.User);
+  // const Usr = JSON.parse(User)
+ 
+// console.log("userFromLogin", Usr);
+// console.log("userFromLogin", user);
 
-  dispatch(getUserFromDb(User))
 
 function ProccedNextScreen() {
+  
+  
   if (PhoneNumber === '') {
-    Alert.alert('Warning', `Please enter your phone number to continue`, [
+    Alert.alert('Warning', `Please enter phone number to continue`, [
       {text: 'Cancel'},
     ]);
     return;
   }
 
+
+  
   if (PhoneNumber.length < 10) {
     Alert.alert('Warning', `Please enter a valid number`, [{text: 'Cancel'}]);
     return;
   }
 
 
+  if (PhoneNumber !== User.Phone) {
+    Alert.alert('Warning', `Please enter your phone number to continue`, [
+      {text: 'Cancel'},
+    ]);
+    return;
+  }
 
 
 
@@ -80,25 +74,33 @@ function ProccedNextScreen() {
 
 
 
-async function getUser() {
+async function getUserFromDb() {
   await getData("userDetails")
   .then(data => data)
   .then(value => {
    setUser(value)
   })
-  .catch(err => console.log(err)).finally(()=>{
-
-   
-
-  }
-  )
-  
+  .catch(err => console.log(err))
 }
 
-useEffect(() => {
-  getUser()
 
-}, [])
+useEffect(() => {
+
+  const unsubscribe = navigation.addListener('focus', () => {
+    // do something
+   getUserFromDb()
+    // dispatch(SelectedContact(selectedContact))
+  });
+
+  return unsubscribe;
+  
+  
+
+}, [navigation])
+
+ 
+// console.log("userFromLogin", User);
+
 
   return (
     <View style={styles.container}>

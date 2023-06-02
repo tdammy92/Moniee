@@ -1,5 +1,5 @@
 import {Text, TextInput, View, Dimensions, Alert} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState,useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 //style import
@@ -7,13 +7,17 @@ import styles from './VerifyPin.style';
 
 //Local imports
 import {Button, genStyle, Loader} from '../../component';
-import { LoginUser } from '../../store/actions';
+import { LoginUser,AddUserFromDb} from '../../store/actions';
+
+import { getData } from '../../services';
 
 const VerifyPin = ({navigation, route}) => {
-  const PhoneNumber = route.params;
+  // const PhoneNumber = route.params;
 
   const [ShowLoader, setShowLoader] = useState(false);
   const [pin, setPin] = useState('');
+  const [User, setUser] = useState({})
+  const pinRef = useRef(null)
 
   // const {width, height} = Dimensions.get('screen');
 
@@ -21,7 +25,7 @@ const VerifyPin = ({navigation, route}) => {
 
   const res = useSelector(state => state.UserReducer.User);
 
-  const {Phone, Pin} = JSON.parse(res);
+  const {Phone, Pin} = res;
 
   // console.log(Phone,Pin);
 
@@ -31,11 +35,11 @@ const VerifyPin = ({navigation, route}) => {
     
     
     setShowLoader(true);
-    if (Phone != PhoneNumber || pin != Pin) {
+    if ( pin != User.Pin) {
       setTimeout(() => {
         
         setShowLoader(false);
-        Alert.alert('Warning', `Incorrect Phone number or password`, [
+        Alert.alert('Warning', `Incorrect password`, [
           {text: 'Cancel'},
         ]);
       }, 2000);
@@ -51,6 +55,44 @@ dispatch(LoginUser)
       navigation.reset({index: 0, routes: [{name: 'Home'}]});
     }, 2000);
   }
+
+
+
+
+
+  async function getUserFromDB() {
+    await getData("userDetails")
+    .then(data => data)
+    .then(value => {
+     setUser(value)
+    })
+    .catch(err => console.log(err))
+  }
+  
+  
+  useEffect(() => {
+  
+    const unsubscribe = navigation.addListener('focus', () => {
+
+
+      // do something
+      dispatch(AddUserFromDb(User))
+     getUserFromDB()
+
+     pinRef.current.focus()
+    
+    });
+  
+    return unsubscribe;
+    
+    
+  
+  }, [navigation])
+
+
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -60,6 +102,7 @@ dispatch(LoginUser)
         {/* view for pin boxes */}
         <View style={styles.textInputWrapper}>
           <TextInput
+          ref={pinRef}
             maxLength={4}
             style={styles.pinInput}
             keyboardType="number-pad"

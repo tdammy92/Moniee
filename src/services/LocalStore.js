@@ -1,5 +1,5 @@
+// import React,{useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 
 
@@ -18,31 +18,34 @@ const storeData = async(key, value) => {
 
 
 
-// const getData = async(key) => {
+const getData = async(key) => {
 
-//     try {
-//         const jsonValue = await AsyncStorage.getItem(key)
+    try {
+        const jsonValue = await AsyncStorage.getItem(key)
       
-//         const res = jsonValue !== null
-//             ? JSON.parse(jsonValue)
-//             : [];
+        const res = jsonValue !== null
+            ? JSON.parse(jsonValue)
+            : [];
 
-//         return res
+        return res
 
 
 
-//     } catch (e) {
-//         alert(`Can not retrive ${key}`)
-//     }
+    } catch (e) {
+        alert(`Can not retrive ${key}`)
+    }
 
-// }
+}
 
-const getData = async (key) => {
+
+
+
+const getDB = async (key) => {
     // get Data from Storage
     try {
       const data = await AsyncStorage.getItem(key);
       if (data !== null) {
-        console.log(data);
+        // console.log('getDataService',data)
         return data;
       }
     } catch (error) {
@@ -62,4 +65,7 @@ const removeData = async(key) => {
     console.log(`${key} removed successfully`)
 }
 
-export {storeData, getData, removeData}
+
+
+
+export {storeData, getData, getDB,removeData}

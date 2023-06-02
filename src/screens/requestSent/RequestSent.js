@@ -1,18 +1,30 @@
 import {Text, TextInput, View, Dimensions,Image} from 'react-native';
-import React from 'react';
-
-
+import React,{useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 //style import
 import styles from './RequestSent.style';
-
 //Local imports
 import {Button, genStyle} from '../../component';
+import { requestFund } from '../../store/actions';
 
 const ResquestSent = ({navigation,route}) => {
   const transactionDetails = route.params;
 
-  const {width, height} = Dimensions.get('screen');
-console.log(transactionDetails)
+  // const {width, height} = Dimensions.get('screen');
+
+const dispatch = useDispatch()
+
+
+console.log(transactionDetails);
+
+useEffect(() => {
+  const amount = Number(transactionDetails.Amount);
+  console.log(amount);
+dispatch(requestFund(amount))
+}, [])
+
+
+
 
 
   return (
